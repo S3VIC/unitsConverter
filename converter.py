@@ -1,5 +1,28 @@
 import PySimpleGUI as sg 
 
+def convertDistanceFromM(unit, value):
+    match units[0]:
+        case 'pm':
+            return value * 1E12
+        case 'A':
+            return value * 1E10
+        case 'nm':
+            return value * 1E9
+        case 'um':
+            return value * 1E6
+        case 'mm':
+            return value * 1E3
+        case 'cm':
+            return value * 1E2
+        case 'dm':
+            return value * 1E1
+        case 'm':
+            return value
+        case 'km':
+            return value * 1E-3
+        case 'ly':
+            return value / (9.4607 * 1E15)
+
 def convertDistance(units, value):
     match units[0]:
         case 'pm':
@@ -26,6 +49,9 @@ def convertDistance(units, value):
 
 
 layout = [
+    [
+    sg.Text('Distance convertion')
+    ],
     [
     sg.Text('First value'),
     sg.Spin(['m', 'g'], key = '-SPIN1'),
