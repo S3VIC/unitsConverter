@@ -1,10 +1,28 @@
 import PySimpleGUI as sg 
 
 def convertDistance(units, value):
-    return {
-        'km' : value * 1E-3,
-        'nm' : value * 1E9
-    }.get(units[1], "Error!")
+    match units[0]:
+        case 'pm':
+            return 0
+        case 'nm':
+            return 0
+        case 'um':
+            return 0
+        case 'mm':
+            return 0
+        case 'cm':
+            return 0
+        case 'dm':
+            return 0
+        case 'm':
+            match units[1]:
+                case 'km':
+                    return value / 1E3
+        case 'km':
+            return 0
+        case 'ly':
+            return 0
+
 
 
 layout = [
@@ -21,7 +39,6 @@ layout = [
     
     
 window = sg.Window('Python converter', layout)
-
 
 while True:
     event, values = window.read()
