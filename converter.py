@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 
-#### FUNCTION DEFINITIONS ####
+                        #### FUNCTION DEFINITIONS ####
 
 def convertDistance(units, value):
     #Defining distance units dictionary
@@ -30,7 +30,14 @@ def convertMass(units, value):
     #returning the result of convertion
     return value * multipliers[1] / multipliers[0]
 
-##### MAIN #####
+def convertEnergy(units, value):
+    energyUnitsDict = {
+    'eV':1, 'J':1, 'kJ':1, 'MJ':1, 'GJ':1, 'nm':1, '1/cm':1,
+    }
+    return 0
+
+
+                            ##### MAIN #####
 # Creating app layout
 #Each nested list defines a row in layout
 layout = [
@@ -39,7 +46,7 @@ layout = [
     ],
     [
     sg.Text('Convert from:'),
-    sg.Spin(['pm', 'A', 'nm', 'um', 'mm', 'cm', 'dm', 'm', 'km'], key = '-SPIN1'),
+    sg.Spin(['pm', 'A', 'nm', 'um', 'mm', 'cm', 'dm', 'm', 'km'], key = '-SPIN1-'),
     sg.Text('To:'),
     sg.Spin(['pm', 'A', 'nm', 'um', 'mm', 'cm', 'dm', 'm', 'km'], key = '-SPIN2-')
     ],
