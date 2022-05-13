@@ -1,7 +1,7 @@
-import PySimpleGUI as sg 
+import PySimpleGUI as sg
 
 def convertDistanceFromM(unit, value):
-    match units[0]:
+    match unit:
         case 'pm':
             return value * 1E12
         case 'A':
@@ -22,7 +22,28 @@ def convertDistanceFromM(unit, value):
             return value * 1E-3
         case 'ly':
             return value / (9.4607 * 1E15)
-
+def convertDistanceFromKm(unit, value):
+    match unit:
+        case 'pm':
+            return value * 1E15
+        case 'A':
+            return value * 1E13
+        case 'nm':
+            return value * 1E12
+        case 'um':
+            return value * 1E9
+        case 'mm':
+            return value * 1E6
+        case 'cm':
+            return value * 1E5
+        case 'dm':
+            return value * 1E4
+        case 'm':
+            return value * 1E3
+        case 'km':
+            return value
+        case 'ly':
+            return value / (9.4607 * 1E12)
 def convertDistance(units, value):
     match units[0]:
         case 'pm':
@@ -55,20 +76,20 @@ layout = [
     [
     sg.Text('First value'),
     sg.Spin(['m', 'g'], key = '-SPIN1'),
-    sg.Text('Second value'), 
+    sg.Text('Second value'),
     sg.Spin(['km', 'kg'], key = '-SPIN2-')
     ],
 
     [sg.Button('Convert', key = '-BUTTON1-')],
     [sg.Input(key = '-INPUT1-')],
-    [sg.Text('Converted values will appear here.', key = '-TEXT3-')] ] #Each nested lists  defines a row in layout 
-    
-    
+    [sg.Text('Converted values will appear here.', key = '-TEXT3-')] ] #Each nested lists  defines a row in layout
+
+
 window = sg.Window('Python converter', layout)
 
 while True:
     event, values = window.read()
-   
+
     if event == sg.WIN_CLOSED:
         break
 
