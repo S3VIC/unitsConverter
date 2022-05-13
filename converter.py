@@ -1,25 +1,45 @@
 import PySimpleGUI as sg
 
-def convertDistanceDict(units, value):
-    unitsDict = {
+def convertDistance(units, value):
+    #Defining distance units dictionary
+    distanceUnitsDict = {
     'pm':1E12,
     'A' :1E10,
     'nm':1E9,
     'um':1E6,
     'mm':1E3,
-    'cm':1E2,
     'dm':1E1,
     'm':1,
+    'cm':1E2,
     'km':1E-3
     }
+    #Table for 2 multipliers specified by given units in units
     multipliers = []
-    for keys in unitsDict:
-        if keys == units[0]:
-            multipliers.append(unitsDict[keys])
-        if keys == units[1]:
-            multipliers.append(unitsDict[keys])
+    #Getting those multipliers by their keys from defined dictionary
+    multipliers.append(distanceUnitsDict[units[0]])
+    multipliers.append(distanceUnitsDict[units[1]])
+
     return value * multipliers[1] / multipliers[0]
 
+def convertMass(units, value):
+    massUnitsDict = {
+    'pg':1E12,
+    'ng':1E9,
+    'ug':1E6,
+    'mg':1E3,
+    'g':1,
+    'kg':1E-3,
+    't':1E-6
+    }
+    multipliers = []
+    for keys in massUnitsDict:
+        if keys == units[0]:
+            multipliers.append(massUnitsDict[keys])
+
+        if keys == units[1]:
+            multipliers.append(massUnitsDict[keys])
+
+    return value * multipliers[1] / multipliers[0]
 
 layout = [
     [
@@ -46,6 +66,6 @@ while True:
         break
 
     if event == '-BUTTON1-':
-        window['-TEXT3-'].update(convertDistanceDict([values['-SPIN1'], values['-SPIN2-']], float(values['-INPUT1-'])))
+        window['-TEXT3-'].update(convertDistance([values['-SPIN1'], values['-SPIN2-']], float(values['-INPUT1-'])))
 
 window.close()
