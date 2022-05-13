@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
 
+#### FUNCTION DEFINITIONS ####
+
 def convertDistance(units, value):
     #Defining distance units dictionary
     distanceUnitsDict = {
@@ -28,6 +30,9 @@ def convertMass(units, value):
     #returning the result of convertion
     return value * multipliers[1] / multipliers[0]
 
+##### MAIN #####
+# Creating app layout
+#Each nested list defines a row in layout
 layout = [
     [
     sg.Text('Distance convertion')
@@ -49,17 +54,21 @@ layout = [
     ],
     [sg.Button('Convert', key = '-BUTTON2-')],
     [sg.Input(key = '-INPUT1-')],
-    [sg.Text('Converted values will appear here.', key = '-TEXT3-')] ] #Each nested lists  defines a row in layout
+    [sg.Text('Converted values will appear here.', key = '-TEXT3-')] ]
 
-
+# Creating window
 window = sg.Window('Python converter', layout)
 
+# Checking for events (ex. button press) in loop
 while True:
     event, values = window.read()
 
+# Making sure app will exit loop and finish its working after closing it
     if event == sg.WIN_CLOSED:
         break
 
+# Handling distance and mass convertion, waiting for button being pressed
+# and checking whether input string value is convertable to numeric one
     if event == '-BUTTON1-':
         inputValue = values['-INPUT1-']
         if inputValue.isnumeric():
@@ -69,4 +78,6 @@ while True:
         inputValue = values['-INPUT1-']
         if inputValue.isnumeric():
             window['-TEXT3-'].update(convertMass([values['-SPIN3-'], values['-SPIN4-']], float(inputValue)))
+
+# Closing after exiting loop window
 window.close()
