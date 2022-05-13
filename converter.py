@@ -22,6 +22,7 @@ def convertDistanceFromM(unit, value):
             return value * 1E-3
         case 'ly':
             return value / (9.4607 * 1E15)
+
 def convertDistanceFromKm(unit, value):
     match unit:
         case 'pm':
@@ -44,6 +45,7 @@ def convertDistanceFromKm(unit, value):
             return value
         case 'ly':
             return value / (9.4607 * 1E12)
+
 def convertDistance(units, value):
     match units[0]:
         case 'pm':
@@ -59,14 +61,30 @@ def convertDistance(units, value):
         case 'dm':
             return 0
         case 'm':
-            match units[1]:
-                case 'km':
-                    return value / 1E3
+            return convertDistanceFromM(units[1], value)
         case 'km':
-            return 0
+            return convertDistanceFromKm(units[1], value)
         case 'ly':
             return 0
-
+def convertDistanceDict(units, value):
+    unitsDict = {
+    'pm':1E12,
+    'A' :1E10,
+    'nm':1E9,
+    'um':1E6,
+    'mm':1E3,
+    'cm':1E2,
+    'dm':1E1,
+    'm':1,
+    'km':1E-3
+    }
+    multipliers = []
+    for keys in unitsDict:
+        if keys == units[0]:
+            multipliers.append(unitsDict[keys])
+        if keys == units[1]:
+            multipliers.append(unitsDict[keys])
+    return value * multipliers[1] / multipliers[0]
 
 
 layout = [
@@ -94,6 +112,6 @@ while True:
         break
 
     if event == '-BUTTON1-':
-        window['-TEXT3-'].update(convertDistance([values['-SPIN1'], values['-SPIN2-']], float(values['-INPUT1-'])))
+        window['-TEXT3-'].update(convertDistanceDict([values['-SPIN1'], values['-SPIN2-']], float(values['-INPUT1-'])))
 
 window.close()
